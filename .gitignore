@@ -1,0 +1,15 @@
+
+*.mat
+*.pyc
+logs/picture/*
+!logs/picture/.gitkeep
+logs/fit/*
+!logs/fit/.gitkeep
+logs/hyperparam/*
+!logs/hyperparam/.gitkeep
+logs/model_figs/*
+!logs/model_figs/.gitkeep
+logs/models/*
+!logs/models/.gitkeep
+logs/records/*
+!logs/records/.gitkeep
