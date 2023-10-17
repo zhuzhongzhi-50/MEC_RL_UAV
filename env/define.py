@@ -254,15 +254,17 @@ class MEC_world(object):
 
             # 传感器遵守交通规则的移动
             if traffic.traffic_move(sensor, move, i) :
-                #【问题】关于这个位置和矩阵这里，感觉没有想明白
-                # 这里二维坐标系下的（x,y）与 矩阵中的（i,j）,是相反的
-                self.DS_state[sensor.position[1], sensor.position[0]] = [1, sum(sensor.total_data.values())]
+                if self.if_sensor_within_range(sensor):
+                    #【问题】关于这个位置和矩阵这里，感觉没有想明白
+                    # 这里二维坐标系下的（x,y）与 矩阵中的（i,j）,是相反的
+                    # self.DS_state[sensor.position[1], sensor.position[0]] = [1, sum(sensor.total_data.values())]
+                    self.DS_state[sensor.position[1], sensor.position[0]] = [sum(sensor.total_data.values())]
                 continue
-        # 【2023年7月10日改】将其他设备的位置信息，也添加进无人机的输入网络中
-        for server in self.servers:
-            self.DS_state[server.position[1], server.position[0]] = [2,0]
-        for uav in self.uavs:
-            self.DS_state[uav.position[1], uav.position[0]] = [3,0]
+        # # 【2023年7月10日改】将其他设备的位置信息，也添加进无人机的输入网络中
+        # for server in self.servers:
+        #     self.DS_state[server.position[1], server.position[0]] = [2,0]
+        # for uav in self.uavs:
+        #     self.DS_state[uav.position[1], uav.position[0]] = [3,0]
     
     # 判断传感器是否在处理设备的覆盖范围内。以此来确定是否能够进行卸载
     def is_point_in_circle(self, point, circle_center, radius):

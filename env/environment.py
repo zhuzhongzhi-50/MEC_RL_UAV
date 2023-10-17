@@ -11,6 +11,7 @@ from matplotlib import pyplot as plt
 from IPython import display
 import random
 from env import traffic
+from scipy.stats import rankdata
 logging.basicConfig(level=logging.WARNING)
 
 # 得到一个表示圆形的点的集合，用于可视化设备的覆盖范围
@@ -187,7 +188,7 @@ class MEC_RL_ENV(gym.Env):
                     count += 1
         return count/mucount
     
-    def get_sensor_obs(self, sensor , if_next_state):
+    def get_sensor_obs(self, sensor, if_next_state):
         points = [
             sensor.position,
             self.servers[0].position,
@@ -220,8 +221,8 @@ class MEC_RL_ENV(gym.Env):
                 self.device_distance[8] > 40
             ):
                 return True, [], [], []
-        device_data_amount = [sum(sensor.total_data.values()), 0, 0, 0, 0, 0, 0, 0, 0]
-        device_compute = [100, 1000, 1000, 1000, 1000, 500, 500, 500, 500]
+        device_data_amount = [round((sum(sensor.total_data.values())/10000),3), 0, 0, 0, 0, 0, 0, 0, 0]
+        device_compute = [0.1, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.5]
         device_transfer = [0,
                             round(self.world.transmit_rate(self.device_distance[1], sensor),3),
                             round(self.world.transmit_rate(self.device_distance[2], sensor),3),
@@ -232,6 +233,10 @@ class MEC_RL_ENV(gym.Env):
                             round(self.world.transmit_rate(self.device_distance[7], sensor),3),
                             round(self.world.transmit_rate(self.device_distance[8], sensor),3)
                             ]
+        
+        device_transfer = 1 - (rankdata(device_transfer) / len(device_transfer))
+        device_transfer[0] = 0
+
         return False, device_data_amount, device_compute, device_transfer 
     
     #先将 save=False 改为 True，让其先不显示

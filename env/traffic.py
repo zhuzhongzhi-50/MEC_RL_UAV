@@ -4,41 +4,41 @@ import numpy as np
 def traffic_move(sensor, move, i): 
     # 左下角区域
     if sensor.position[0] <= 75 and sensor.position[1] <= 75:
-        sensor.position[0] += move[0] 
-        sensor.position[1] += move[1]
-        # 防止移动出界，如果移动出界，则不进行移动
-        if  sensor.position[0] >= 75 or sensor.position[0] <= 0:
-            sensor.position[0] -= move[0] 
-        if  sensor.position[1] >= 75 or sensor.position[1] <= 0:
-            sensor.position[1] -= move[1]
-        # 只做一种情况的 判断，满足就直接跳出
+        # sensor.position[0] += move[0] 
+        # sensor.position[1] += move[1]
+        # # 防止移动出界，如果移动出界，则不进行移动
+        # if  sensor.position[0] >= 75 or sensor.position[0] <= 0:
+        #     sensor.position[0] -= move[0] 
+        # if  sensor.position[1] >= 75 or sensor.position[1] <= 0:
+        #     sensor.position[1] -= move[1]
+        # # 只做一种情况的 判断，满足就直接跳出
         return True
     # 左上角区域
     if sensor.position[0] <= 75 and sensor.position[1] >= 125:
-        sensor.position[0] += move[0] 
-        sensor.position[1] += move[1]
-        if  sensor.position[0] >= 75 or sensor.position[0] <= 0:
-            sensor.position[0] -= move[0] 
-        if  sensor.position[1] <= 125 or sensor.position[1] >= 200:
-            sensor.position[1] -= move[1]
+        # sensor.position[0] += move[0] 
+        # sensor.position[1] += move[1]
+        # if  sensor.position[0] >= 75 or sensor.position[0] <= 0:
+        #     sensor.position[0] -= move[0] 
+        # if  sensor.position[1] <= 125 or sensor.position[1] >= 200:
+        #     sensor.position[1] -= move[1]
         return True
     # 右下角区域 
     if sensor.position[0] >= 125 and sensor.position[1] <= 75:
-        sensor.position[0] += move[0] 
-        sensor.position[1] += move[1]
-        if  sensor.position[0] < 125 or sensor.position[0] >= 200:
-            sensor.position[0] -= move[0] 
-        if  sensor.position[1] > 75 or sensor.position[1] <= 0:
-            sensor.position[1] -= move[1]
+        # sensor.position[0] += move[0] 
+        # sensor.position[1] += move[1]
+        # if  sensor.position[0] < 125 or sensor.position[0] >= 200:
+        #     sensor.position[0] -= move[0] 
+        # if  sensor.position[1] > 75 or sensor.position[1] <= 0:
+        #     sensor.position[1] -= move[1]
         return True
     # 右上角区域   
     if sensor.position[0] >= 125 and sensor.position[1] >= 125:
-        sensor.position[0] += move[0] 
-        sensor.position[1] += move[1]
-        if  sensor.position[0] < 125 or sensor.position[0] >= 200:
-            sensor.position[0] -= move[0] 
-        if  sensor.position[1] < 125 or sensor.position[1] >= 200:
-            sensor.position[1] -= move[1]
+        # sensor.position[0] += move[0] 
+        # sensor.position[1] += move[1]
+        # if  sensor.position[0] < 125 or sensor.position[0] >= 200:
+        #     sensor.position[0] -= move[0] 
+        # if  sensor.position[1] < 125 or sensor.position[1] >= 200:
+        #     sensor.position[1] -= move[1]
         return True
     # 左下横车道，0、100 都需要覆盖到
     if sensor.position[0] >= 0 and sensor.position[0] < 95 and sensor.position[1] > 75 and sensor.position[1] <= 100:
