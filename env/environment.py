@@ -109,6 +109,10 @@ class MEC_RL_ENV(gym.Env):
         # 调用 define.py 开始卸载决策和随机移动
         self.world.step()
 
+        # 关于这两个值得不一样，我表示非常得差异！
+        # print(self.DS_state)
+        # print(self.world.DS_state)
+
         #【 第二步：观察新状态 】
         logging.info("uav observation")
         # 获得新的，new observation，也就是强化学习那里需要使用的 S(t+1)
@@ -143,7 +147,7 @@ class MEC_RL_ENV(gym.Env):
                  uav.uav_obs_r + rd[1] - uav.position[1]]
         for i in range(ob_rd[1], ob_lu[1]):
             map_i = rd[1] + i - ob_rd[1]
-            obs[i][ob_lu[0]:ob_rd[0]] = self.DS_state[map_i][lu[0]:rd[0]]
+            obs[i][ob_lu[0]:ob_rd[0]] = self.world.DS_state[map_i][lu[0]:rd[0]]
         uav.obs = obs
         return obs
     

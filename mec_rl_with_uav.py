@@ -77,7 +77,7 @@ def circle_argmax(move_dist, uav_move_r):
 def uav_actor(input_dim_list, cnn_kernel_size, uav_move_r):
     state_map = keras.Input(shape=input_dim_list[0])
     # 进行卷积操作，映射成一个输出通道为2的张量。即：卷积操作后，会生成2个通道的特征图。 过滤器为：3*3的矩阵，这样设置可以更好地捕捉局部特征
-    cnn_message = layers.Conv2D(input_dim_list[0][2], cnn_kernel_size, activation='relu', padding='same')(state_map)
+    cnn_message = layers.Conv2D(2, cnn_kernel_size, activation='relu', padding='same')(state_map)
     # 平均池化的窗口大小为：9*9，表示每个池化区域的大小为9个像素点
     cnn_message = layers.AveragePooling2D(pool_size=int(input_dim_list[0][0] / (2 * uav_move_r + 1)))(cnn_message)
     # 以20%的概率随机失活张量中的神经元
