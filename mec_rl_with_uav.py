@@ -284,6 +284,12 @@ class MEC_RL_With_Uav(object):
             # 直接执行无人机的移动，获取新的无人机的位置信息
             for i, uav in enumerate(self.uavs):
                 self.uav_move(uav_act_list[i], uav)
+                # if(epoch <= 2000):
+                #     uav.position_x.append(uav.position[0])
+                #     uav.position_y.append(uav.position[1])
+                # if(epoch >= 8000):
+                #     uav.position_x_last.append(uav.position[0])
+                #     uav.position_x_last.append(uav.position[1])
 
             #【 第二步：传感器生成卸载决策 】
             self.last_sensor_no = []
@@ -347,6 +353,12 @@ class MEC_RL_With_Uav(object):
             # 执行无人机的移动，获取新的无人机的位置信息
             for i, uav in enumerate(self.uavs):
                 self.uav_move(uav_act_list[i], uav)
+                # if(epoch <= 2000):
+                #     uav.position_x.append(uav.position[0])
+                #     uav.position_y.append(uav.position[1])
+                # if(epoch >= 8000):
+                #     uav.position_x_last.append(uav.position[0])
+                #     uav.position_y_last.append(uav.position[1])
             
             # 随机卸载决策
             for i, sensor in enumerate(self.sensors):
@@ -477,9 +489,9 @@ class MEC_RL_With_Uav(object):
         while epoch < max_epochs:
             print('epoch%s' % epoch)
             
-            # if render and (epoch % 50 == 1):
-            #     self.env.render(env_log_dir, epoch, True)
-            self.env.render(env_log_dir, epoch, True)
+            if render and (epoch % 100 == 1):
+                self.env.render(env_log_dir, epoch, True)
+            # self.env.render(env_log_dir, epoch, True)
             
             # max_step取的是200，表示为episode
             if steps >= max_step:
@@ -507,6 +519,18 @@ class MEC_RL_With_Uav(object):
 
             # 经验回放
             self.replay()
+
+            # for i, uav in enumerate(self.uavs):
+            #     if(epoch == 1999):
+            #         file_path1 = 'logs/array_x.npy' + str(i)
+            #         np.save(file_path1, uav.position_x)
+            #         file_path2 = 'logs/array_y.npy' + str(i)
+            #         np.save(file_path2, uav.position_y)
+            #     if(epoch == 9999):
+            #         file_path3 = 'logs/array_x_last.npy' + str(i)
+            #         np.save(file_path3, uav.position_x_last)
+            #         file_path4 = 'logs/array_y_last.npy' + str(i)
+            #         np.save(file_path4, uav.position_y_last)
             
             if epoch % up_freq == 1:
                 if FL:

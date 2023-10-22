@@ -88,6 +88,11 @@ class EdgeUav(object):
         self.uav_obs_r = uav_obs_r
         self.uav_collect_r = uav_collect_r
         self.uav_move_r = uav_move_r
+
+        self.position_x = []
+        self.position_y = []
+        self.position_x_last = []
+        self.position_y_last = []
         
         # 收集速率参数： 
         self.h = 5
