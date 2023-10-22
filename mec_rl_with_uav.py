@@ -289,7 +289,7 @@ class MEC_RL_With_Uav(object):
                 #     uav.position_y.append(uav.position[1])
                 # if(epoch >= 8000):
                 #     uav.position_x_last.append(uav.position[0])
-                #     uav.position_x_last.append(uav.position[1])
+                #     uav.position_y_last.append(uav.position[1])
 
             #【 第二步：传感器生成卸载决策 】
             self.last_sensor_no = []
