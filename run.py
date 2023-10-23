@@ -47,7 +47,7 @@ render_freq = 32
 # 联合更新参数：联合更新频率、是否进行联合更新、联合更新权重（取1表示不进行联合更新）
 up_freq = 8
 FL = True
-FL_omega = 0.5
+FL_omega = 0
 
 # 设置随机种子
 map_seed = 1

@@ -482,7 +482,7 @@ class MEC_RL_With_Uav(object):
         os.mkdir(record_dir)
         os.makedirs('logs/models/' + cur_time)
         summary_writer = tf.summary.create_file_writer(train_log_dir)
-        episode, steps, epoch, total_reward = 0, 0, 0, 0
+        episode, steps, epoch, total_reward, total_age = 0, 0, 0, 0, 0
         finish_length = []
         finish_size = []
 
@@ -507,12 +507,14 @@ class MEC_RL_With_Uav(object):
                 with summary_writer.as_default():
                     tf.summary.scalar('Main/episode_reward', total_reward, step=episode)
                     tf.summary.scalar('Main/episode_steps', steps, step=episode)
+                    tf.summary.scalar('Main/episode_age', total_age, step=episode)
 
                 summary_writer.flush()
                 
                 self.save_model(episode, cur_time)
                 steps = 0
                 total_reward = 0
+                total_age = 0
 
             # 开始行动，获得奖励
             cur_uav_rewards, cur_sensor_rewards = self.actor_act(epoch)
@@ -543,6 +545,7 @@ class MEC_RL_With_Uav(object):
                 update_target_net(self.center_critic, self.target_center_critic, self.tau)
             
             total_reward += np.sum(cur_uav_rewards) + np.sum(cur_sensor_rewards)
+            total_age += self.env.world.all_sensors_age
             steps += 1
             epoch += 1
 
@@ -556,6 +559,7 @@ class MEC_RL_With_Uav(object):
                             tf.summary.scalar('Uav/uav%s_critic_loss' % uav_count, self.summaries['uav%s-critic_loss' % uav_count], step=epoch)
                 tf.summary.scalar('Main/cur_uav_rewards', np.sum(cur_uav_rewards), step=epoch)
                 tf.summary.scalar('Main/cur_sensor_rewards', np.sum(cur_sensor_rewards), step=epoch)
+                tf.summary.scalar('Main/step_age', self.env.world.all_sensors_age, step=epoch)
 
             summary_writer.flush()
 
