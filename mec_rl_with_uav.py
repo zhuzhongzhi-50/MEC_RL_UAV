@@ -560,6 +560,7 @@ class MEC_RL_With_Uav(object):
                 tf.summary.scalar('Main/cur_uav_rewards', np.sum(cur_uav_rewards), step=epoch)
                 tf.summary.scalar('Main/cur_sensor_rewards', np.sum(cur_sensor_rewards), step=epoch)
                 tf.summary.scalar('Main/step_age', self.env.world.all_sensors_age, step=epoch)
+                tf.summary.scalar('Main/step_max_age', self.env.world.max_sensors_age, step=epoch)
 
             summary_writer.flush()
 

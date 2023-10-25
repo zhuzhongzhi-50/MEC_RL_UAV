@@ -131,6 +131,7 @@ class MEC_world(object):
         self.sensor_delay = []
 
         self.all_sensors_age = 0
+        self.max_sensors_age = 0
 
         # 设备创建，随机生成它们的位置
         self.sensor_position = [random.choices([i for i in range(int(0.1 * self.map_size), int(0.9 * self.map_size))], k=sensor_num), random.choices([i for i in range(int(0.1 * self.map_size), int(0.9 * self.map_size))], k=sensor_num)]
@@ -231,8 +232,11 @@ class MEC_world(object):
             self.sensor_delay[i] = round(self.sensor_delay[i], 3)
 
         self.all_sensors_age = 0
+        self.max_sensors_age = 0
         for sensor in self.sensors:
             self.all_sensors_age = self.all_sensors_age + len(sensor.total_data)
+            if len(sensor.total_data) > self.max_sensors_age:
+                self.max_sensors_age = len(sensor.total_data)
 
         #【 第三步：传感器生成数据、规范移动、获得设备状态 DS_state 】
         # 先重置 DS_state

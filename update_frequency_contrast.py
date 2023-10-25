@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
-def smooth_data(data, weight=0.99):
+def smooth_data(data, weight=0.95):
     smoothed_data = []
     last = data[0]
     for point in data:
@@ -13,11 +13,11 @@ def smooth_data(data, weight=0.99):
     return smoothed_data
 
 # 导入从 TensorBoard 导出的数据文件
-file_path1 = 'logs/tensorboard_result/FL_1.json'
-file_path2 = 'logs/tensorboard_result/FL_0.75.json'
-file_path3 = 'logs/tensorboard_result/FL_0.5.json'
-file_path4 = 'logs/tensorboard_result/FL_0.25.json'
-file_path5 = 'logs/tensorboard_result/FL_0.json'
+file_path1 = 'logs/update_frequency/frequency_0_1.json'
+file_path2 = 'logs/update_frequency/frequency_0_4.json'
+file_path3 = 'logs/update_frequency/frequency_0_6.json'
+file_path4 = 'logs/update_frequency/frequency_0_8.json'
+file_path5 = 'logs/update_frequency/frequency_0_10.json'
 
 # 加载 JSON 数据
 with open(file_path1, 'r') as file:
@@ -34,23 +34,23 @@ with open(file_path5, 'r') as file:
 # 提取时间戳、步骤数和数值
 time1 = [entry[0] for entry in data1]
 step_nums1 = [entry[1] for entry in data1]
-vals1 = [entry[2] for entry in data1]
+vals1 = [entry[2]/2 for entry in data1]
 
 time2 = [entry[0] for entry in data2]
 step_nums2 = [entry[1] for entry in data2]
-vals2 = [entry[2] for entry in data2]
+vals2 = [entry[2]/2 for entry in data2]
 
 time3 = [entry[0] for entry in data3]
 step_nums3 = [entry[1] for entry in data3]
-vals3 = [entry[2] for entry in data3]
+vals3 = [entry[2]/2 for entry in data3]
 
 time4 = [entry[0] for entry in data4]
 step_nums4 = [entry[1] for entry in data4]
-vals4 = [entry[2] for entry in data4]
+vals4 = [entry[2]/2 for entry in data4]
 
 time5 = [entry[0] for entry in data5]
 step_nums5 = [entry[1] for entry in data5]
-vals5 = [entry[2] for entry in data5]
+vals5 = [entry[2]/2 for entry in data5]
 
 smoothed_vals1 = smooth_data(vals1)
 smoothed_vals2 = smooth_data(vals2)
@@ -80,8 +80,8 @@ plt.plot(step_nums5, smoothed_vals5)
 
 plt.xlabel('Step Number')
 plt.ylabel('Reward')
-plt.ylim(1.2, 3.8)
-plt.legend(['FL 0', 'FL 0.25', 'FL 0.5', 'FL 0.75', 'FL 1'])
+# plt.ylim(1.2, 3.8)
+plt.legend(['1', '4', '6', '8', '10'])
 
 # 显示曲线
 plt.show()
