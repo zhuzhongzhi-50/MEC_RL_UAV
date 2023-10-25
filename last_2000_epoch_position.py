@@ -56,7 +56,7 @@ ax.set_ylabel('y')
 cbar = plt.colorbar(sc, shrink=0.8)
 formatter = FuncFormatter(format_num)
 cbar.ax.yaxis.set_major_formatter(formatter)
-cbar.set_label('epoch')
+cbar.set_label('step')
 
 # 添加文本标签
 bbox_props = dict(boxstyle='round,pad=0.25', fc='white', ec='blue', lw=1, alpha=0.5)
@@ -99,6 +99,6 @@ ax.axis('square')
 ax.set_xlim([0, 200])
 ax.set_ylim([0, 200])
 
-plt.title('all uavs position epoch(8000--10000)')
+plt.title('all uavs position step(8000--10000)')
 
 plt.show()

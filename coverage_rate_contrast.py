@@ -13,11 +13,11 @@ def smooth_data(data, weight=0.99):
     return smoothed_data
 
 # 导入从 TensorBoard 导出的数据文件
-file_path1 = 'logs/tensorboard_result/FL_0.json'
-file_path2 = 'logs/tensorboard_result/FL_0.25.json'
+file_path1 = 'logs/tensorboard_result/FL_1.json'
+file_path2 = 'logs/tensorboard_result/FL_0.75.json'
 file_path3 = 'logs/tensorboard_result/FL_0.5.json'
-file_path4 = 'logs/tensorboard_result/FL_0.75.json'
-file_path5 = 'logs/tensorboard_result/FL_1.json'
+file_path4 = 'logs/tensorboard_result/FL_0.25.json'
+file_path5 = 'logs/tensorboard_result/FL_0.json'
 
 # 加载 JSON 数据
 with open(file_path1, 'r') as file:

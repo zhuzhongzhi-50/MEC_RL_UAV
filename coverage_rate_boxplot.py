@@ -6,11 +6,11 @@ import tensorflow as tf
 # plt.figure(figsize=(10, 6))  # 增大图形的宽度
 
 # 导入从 TensorBoard 导出的数据文件
-file_path1 = 'logs/tensorboard_result/FL_0.json'
-file_path2 = 'logs/tensorboard_result/FL_0.25.json'
+file_path1 = 'logs/tensorboard_result/FL_1.json'
+file_path2 = 'logs/tensorboard_result/FL_0.75.json'
 file_path3 = 'logs/tensorboard_result/FL_0.5.json'
-file_path4 = 'logs/tensorboard_result/FL_0.75.json'
-file_path5 = 'logs/tensorboard_result/FL_1.json'
+file_path4 = 'logs/tensorboard_result/FL_0.25.json'
+file_path5 = 'logs/tensorboard_result/FL_0.json'
 
 # 加载 JSON 数据
 with open(file_path1, 'r') as file:
@@ -81,7 +81,7 @@ for pos, data, color, facecolor in zip(positions, all_data, colors, facecolors):
         patch.set_facecolor(facecolor)
         
 # 设置 x 轴刻度标签
-plt.xticks(positions, ['FL=0', 'FL=0.25', 'FL=0.5', 'FL=0.75', 'FL=1'])
+plt.xticks(positions, ['FL 0', 'FL 0.25', 'FL 0.5', 'FL 0.75', 'FL 1'])
 # 添加标题和标签
 # plt.title('Multiple Boxplots')
 plt.xlabel('Edge Synergy Joint Factor')
