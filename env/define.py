@@ -133,6 +133,9 @@ class MEC_world(object):
         self.all_sensors_age = 0
         self.max_sensors_age = 0
 
+        # 增加一个字段用于记录派遣无人机次数以及间隔
+        self.go_num = []
+
         # 设备创建，随机生成它们的位置
         self.sensor_position = [random.choices([i for i in range(int(0.1 * self.map_size), int(0.9 * self.map_size))], k=sensor_num), random.choices([i for i in range(int(0.1 * self.map_size), int(0.9 * self.map_size))], k=sensor_num)]
         for i in range(sensor_num):
@@ -220,6 +223,11 @@ class MEC_world(object):
                 # 是一个错误的卸载决策，所以直接将奖励设置为 0
                 self.sensor_delay.append(0)
 
+            #【2023年11月6日】计算 total_data 的长度，也就是观察它的年龄，与阈值进行比较，之后派无人机进行处理情况 total_data
+            if(len(sensor.total_data) > 25):
+                # 直接派无人机进行处理
+                sensor.total_data = {}
+        
         #【 第二步：对时延进行处理，转化为卸载决策的奖励 】
         # 卸载决策的奖励: 延迟分支1，时延越小，奖励越大，时延为0，则奖励为0 
         # 并结合 PF 参数（可以修改最终的奖励）

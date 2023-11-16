@@ -149,6 +149,8 @@ class MEC_RL_ENV(gym.Env):
         uav_reward = self.get_uav_reward()
         for uav in self.uavs:
             all_uav_reward = 0.5*uav_reward + 0.5*age_reward
+            # all_uav_reward = age_reward
+            # all_uav_reward = uav_reward
             uav_rewards.append(round(all_uav_reward, 3))
         
         return obs, uav_rewards, self.world.sensor_delay

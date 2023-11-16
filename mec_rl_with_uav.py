@@ -316,6 +316,11 @@ class MEC_RL_With_Uav(object):
                 execute_op_softmax = tf.expand_dims(execute_op_softmax, axis=0)
                 sensor_act_list.append(execute)
                 sensor_softmax_list.append([execute_op_softmax])
+
+                #【 2023年11月9日】添加一个判断，记录 len(sensor.total_data) 的数据年龄情况，用一个数据进行保存
+                if(len(sensor.total_data) > 25):
+                    self.env.world.go_num.append([epoch, sensor.no])
+
             print(sensor_act_list)
 
             #【 第三步：具体执行两种决策 】
@@ -533,6 +538,10 @@ class MEC_RL_With_Uav(object):
             #         np.save(file_path3, uav.position_x_last)
             #         file_path4 = 'logs/array_y_last.npy' + str(i)
             #         np.save(file_path4, uav.position_y_last)
+        
+            if(epoch == 9999):
+                file_path5 = 'logs/go_num25.npy'
+                np.save(file_path5, self.env.world.go_num)
             
             if epoch % up_freq == 1:
                 if FL:
