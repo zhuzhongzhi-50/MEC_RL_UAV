@@ -47,6 +47,8 @@ class Sensor(object):
         self.total_data = {}
         self.lam = 1e3
         self.sensor_max_data_size = 2e3
+
+        self.dispatch_count = 0
         
         # 传输速率参数：
         self.ptr = 0.2

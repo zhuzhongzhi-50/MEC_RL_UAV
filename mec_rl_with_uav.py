@@ -9,6 +9,8 @@ import os
 import imageio
 import glob
 
+from env import define
+
 # 计算二维直角坐标系下的两个点的距离
 def distance(x1, y1, x2, y2):
     return np.sqrt((x2-x1)**2 + (y2-y1)**2)
@@ -59,6 +61,23 @@ def merge_fl(nets, omega=0.5):
             # print([others.shape, target_params[i].shape])
         # 将新模型的参数值设置给当前模型
         nets[agent_no].set_weights(target_params)
+
+def merge_fl_last(nets):
+    # 只针对最后一个无人机的网络进行联合更新
+    for agent_no in range(len(nets)):
+        if agent_no == len(nets) - 1:
+            target_params = nets[agent_no].get_weights()
+            other_params = []
+            for i, net in enumerate(nets):
+                if i == agent_no:
+                    continue
+                other_params.append(net.get_weights())
+            for i in range(len(target_params)):
+                others = np.sum([w[i] for w in other_params], axis=0) / len(other_params)
+                target_params[i] = 0 * target_params[i] + (1 - 0) * others
+                # print([others.shape, target_params[i].shape])
+            # 将新模型的参数值设置给当前模型
+            nets[agent_no].set_weights(target_params)
 
 # 输出最大值处的位置坐标
 # 在移动半径为 6 的圆形范围内，找到 move_dist 中的最大值所对应的位置。
@@ -320,6 +339,12 @@ class MEC_RL_With_Uav(object):
                 #【 2023年11月9日】添加一个判断，记录 len(sensor.total_data) 的数据年龄情况，用一个数据进行保存
                 if(len(sensor.total_data) > 25):
                     self.env.world.go_num.append([epoch, sensor.no])
+                    sensor.dispatch_count += 1
+                # 派遣常驻无人机，并将所有的传感器的因派遣次数降低为0，这就导致一种现象就是，可能整个场景汇总最多
+                # 直接派遣到这个，sensor的位置上去。
+                # 不能写在这里，需要写在最后
+                # if(sensor.dispatch_count > 20):
+                #    self.creat_UAV(sensor)
 
             print(sensor_act_list)
 
@@ -347,6 +372,14 @@ class MEC_RL_With_Uav(object):
                     
                     self.center_memory.append([sensor_cur_state_list[count_device_distance], sensor_softmax_list[count_device_distance], sensor_rewards[count_device_distance], new_sensor_cur_state_list[count_device_distance]])
                     count_device_distance += 1
+            for sensor in self.sensors:
+                if(sensor.dispatch_count > 20):
+                    self.creat_UAV(sensor)
+                    # 手动增加无人机后，直接清零
+                    for sensor in self.sensors:
+                        sensor.dispatch_count = 0
+            if(epoch == 98):
+                self.creat_UAV(sensor)
         else:
             # 随机移动决策，没有保存数据到经验池中
             uav_act_list = []
@@ -604,4 +637,29 @@ class MEC_RL_With_Uav(object):
             uav.action.move[1] = -uav.action.move[1]
         uav.position += uav.action.move
 
-        
+    def creat_UAV(self, sensor):
+         # 生成一个无人机：
+        self.env.world.uav_count += 1
+        self.env.world.uav_count += 1
+        self.env.world.uavs.append(define.EdgeUav(np.array([sensor.position[0], sensor.position[1]]), self.env.world.uav_obs_r, self.env.world.uav_collect_r, self.env.world.uav_move_r))
+
+        # 为这个无人机创建网络
+        self.uav_critic_opt.append(keras.optimizers.Adam(learning_rate=self.lr_uc))
+        self.uav_actor_opt.append(keras.optimizers.Adam(learning_rate=self.lr_ua))
+        # 初始化所有的actor网络
+        new_uav_actor = uav_actor([self.state_map_shape], self.cnn_kernel_size, self.uav_move_r)
+        target_uav_actor = uav_actor([self.state_map_shape], self.cnn_kernel_size, self.uav_move_r)
+        update_target_net(new_uav_actor, target_uav_actor, tau=0)
+        self.uav_actors.append(new_uav_actor)
+        self.target_uav_actors.append(target_uav_actor)
+        # 初始化所有的critic网络
+        new_uav_critic = uav_critic([self.state_map_shape, self.move_map_shape], self.cnn_kernel_size)
+        target_uav_critic = uav_critic([self.state_map_shape, self.move_map_shape], self.cnn_kernel_size)
+        update_target_net(new_uav_critic, target_uav_critic, tau=0)
+        self.uav_critics.append(new_uav_critic)
+        self.target_uav_critics.append(target_uav_critic)
+
+        # 执行以此联合更新，不考虑自己，只考虑别人，跟新这个无人机的参数情况
+        merge_fl_last(self.uav_actors)
+        merge_fl_last(self.uav_critics)
+    
