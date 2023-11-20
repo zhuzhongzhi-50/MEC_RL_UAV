@@ -17,7 +17,7 @@ plt.rcParams['figure.figsize'] = (9, 9)
 map_size = 200
 uav_num = 4
 server_num = 4
-sensor_num = 30
+sensor_num = 60
 
 # 各设备的观察、收集半径、移动速度
 uav_obs_r = 60

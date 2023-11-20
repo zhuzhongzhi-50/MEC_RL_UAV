@@ -233,6 +233,8 @@ class MEC_RL_With_Uav(object):
         self.center_critic_opt = keras.optimizers.Adam(learning_rate=lr_cc)
 
         self.summaries = {}
+        self.record_epoch = []
+        self.if_dispatch = True
 
         for _ in range(self.uav_num):
             self.uav_critic_opt.append(keras.optimizers.Adam(learning_rate=lr_uc))
@@ -309,6 +311,8 @@ class MEC_RL_With_Uav(object):
                 # if(epoch >= 8000):
                 #     uav.position_x_last.append(uav.position[0])
                 #     uav.position_y_last.append(uav.position[1])
+                uav.position_x.append(uav.position[0])
+                uav.position_y.append(uav.position[1])
 
             #【 第二步：传感器生成卸载决策 】
             self.last_sensor_no = []
@@ -372,14 +376,15 @@ class MEC_RL_With_Uav(object):
                     
                     self.center_memory.append([sensor_cur_state_list[count_device_distance], sensor_softmax_list[count_device_distance], sensor_rewards[count_device_distance], new_sensor_cur_state_list[count_device_distance]])
                     count_device_distance += 1
-            for sensor in self.sensors:
-                if(sensor.dispatch_count > 20):
-                    self.creat_UAV(sensor)
-                    # 手动增加无人机后，直接清零
-                    for sensor in self.sensors:
-                        sensor.dispatch_count = 0
-            if(epoch == 98):
-                self.creat_UAV(sensor)
+            if(self.if_dispatch):
+                for sensor in self.sensors:
+                    if(sensor.dispatch_count > 10):
+                        self.creat_UAV(sensor)
+                        # 手动增加无人机后，直接清零
+                        for sensor in self.sensors:
+                            sensor.dispatch_count = 0
+                        self.record_epoch.append([epoch, sensor.no])      
+                        self.if_dispatch = False
         else:
             # 随机移动决策，没有保存数据到经验池中
             uav_act_list = []
@@ -397,6 +402,8 @@ class MEC_RL_With_Uav(object):
                 # if(epoch >= 8000):
                 #     uav.position_x_last.append(uav.position[0])
                 #     uav.position_y_last.append(uav.position[1])
+                uav.position_x.append(uav.position[0])
+                uav.position_y.append(uav.position[1])
             
             # 随机卸载决策
             for i, sensor in enumerate(self.sensors):
@@ -560,21 +567,24 @@ class MEC_RL_With_Uav(object):
             # 经验回放
             self.replay()
 
-            # for i, uav in enumerate(self.uavs):
-            #     if(epoch == 1999):
-            #         file_path1 = 'logs/array_x.npy' + str(i)
-            #         np.save(file_path1, uav.position_x)
-            #         file_path2 = 'logs/array_y.npy' + str(i)
-            #         np.save(file_path2, uav.position_y)
-            #     if(epoch == 9999):
-            #         file_path3 = 'logs/array_x_last.npy' + str(i)
-            #         np.save(file_path3, uav.position_x_last)
-            #         file_path4 = 'logs/array_y_last.npy' + str(i)
-            #         np.save(file_path4, uav.position_y_last)
+            for i, uav in enumerate(self.uavs):
+                # if(epoch == 1999):
+                #     file_path1 = 'logs/array_x.npy' + str(i)
+                #     np.save(file_path1, uav.position_x)
+                #     file_path2 = 'logs/array_y.npy' + str(i)
+                #     np.save(file_path2, uav.position_y)
+                if(epoch == 9999):
+                    file_path3 = 'logs/array_x_last.npy' + str(i)
+                    np.save(file_path3, uav.position_x_last)
+                    file_path4 = 'logs/array_y_last.npy' + str(i)
+                    np.save(file_path4, uav.position_y_last)
         
             if(epoch == 9999):
                 file_path5 = 'logs/go_num25.npy'
                 np.save(file_path5, self.env.world.go_num)
+                # 记录出发派遣的epoch
+                file_path10 = 'logs/dispatch_epoch.npy'
+                np.save(file_path10, self.record_epoch)
             
             if epoch % up_freq == 1:
                 if FL:
