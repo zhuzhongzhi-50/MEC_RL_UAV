@@ -11,6 +11,14 @@ go_num40 = 'logs/go_num/go_num40.npy'
 go_num45 = 'logs/go_num/go_num45.npy'
 go_num50 = 'logs/go_num/go_num50.npy'
 
+# go_num25_UAV_no_move = 'logs/go_num/go_num25_UAV_no_move.npy'
+# go_num25_UAV_no_move = np.load(go_num25_UAV_no_move)
+# go_num25_UAV_no_move_x = go_num25_UAV_no_move[:,0]
+# go_num25_UAV_no_move_y = go_num25_UAV_no_move[:,1]
+# go_num25_UAV_no_move_y_size, go_num25_UAV_no_move_y_counts = np.unique(go_num25_UAV_no_move_y, return_counts=True)
+# sorted_go_num25_UAV_no_move_y_counts = sorted(go_num25_UAV_no_move_y_counts, reverse=True)
+# num25_UAV_no_move_y_top_three = sum(sorted_go_num25_UAV_no_move_y_counts[:3])
+
 # 提取x和y坐标
 go_num20 = np.load(go_num20)
 go_num20_x = go_num20[:,0]
@@ -42,7 +50,6 @@ go_num50 = np.load(go_num50)
 go_num50_x = go_num50[:,0]
 go_num50_y = go_num50[:,1]
 print(len(go_num50_y))
-
 
 # 统计y坐标的出现次数
 go_num20_y_size, go_num20_y_counts = np.unique(go_num20_y, return_counts=True)

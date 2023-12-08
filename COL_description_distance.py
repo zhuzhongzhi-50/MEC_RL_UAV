@@ -105,23 +105,40 @@ mean_dist_sums_last = np.mean(dist_sums_last)
 
 smoothed_vals2 = smooth_data(dist_sums_last)
 
-# 创建图形对象和子图
+# # 创建图形对象和子图
+# fig, ax = plt.subplots()
+
+# # 绘制距离和随时间变化的图表
+# ax.plot(range(1, len(smoothed_vals1)+1), smoothed_vals1, label='First 1000 Step')
+# # 绘制平均线
+# # ax.axhline(mean_dist_sums, color='b', linestyle='--', alpha=0.3, label='First 1000 Mean Distance')
+# # ax.axhline(mean_dist_sums, color='b', linestyle='--', alpha=0.3)
+
+# ax.plot(range(1, len(smoothed_vals2)+1), smoothed_vals2, label='Last 1000 Step')
+# # ax.axhline(mean_dist_sums_last, color='r', linestyle='--', alpha=0.3, label='Last 1000 Mean Distance')
+# ax.axhline(mean_dist_sums_last, color='r', linestyle='--', alpha=0.3)
+
+# plt.xlabel('Step')
+# plt.ylabel('Uavs Distance')
+# plt.ylim(60, 140)
+# # plt.ylim(65, 105)
+# # plt.title('Distance Sum between Drones')
+# plt.legend()
+# plt.show()
+
+
 fig, ax = plt.subplots()
 
-# 绘制距离和随时间变化的图表
-ax.plot(range(1, len(smoothed_vals1)+1), smoothed_vals1, label='First 1000 Step')
-# 绘制平均线
-# ax.axhline(mean_dist_sums, color='b', linestyle='--', alpha=0.3, label='First 1000 Mean Distance')
-# ax.axhline(mean_dist_sums, color='b', linestyle='--', alpha=0.3)
+# 对第一条线进行设置
+ax.plot(range(1, len(smoothed_vals1)+1), smoothed_vals1, label='First 1000 Step', linestyle='-', marker='o', markevery=50)
 
-ax.plot(range(1, len(smoothed_vals2)+1), smoothed_vals2, label='Last 1000 Step')
-# ax.axhline(mean_dist_sums_last, color='r', linestyle='--', alpha=0.3, label='Last 1000 Mean Distance')
+# 对第二条线进行设置
+ax.plot(range(1, len(smoothed_vals2)+1), smoothed_vals2, label='Last 1000 Step', linestyle='--', marker='x', markevery=50)
+
 ax.axhline(mean_dist_sums_last, color='r', linestyle='--', alpha=0.3)
 
 plt.xlabel('Step')
 plt.ylabel('Uavs Distance')
 plt.ylim(60, 140)
-# plt.ylim(65, 105)
-# plt.title('Distance Sum between Drones')
 plt.legend()
 plt.show()

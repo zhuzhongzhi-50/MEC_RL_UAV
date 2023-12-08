@@ -74,20 +74,21 @@ smoothed_vals5 = smooth_data(vals5)
 smoothed_vals6 = smooth_data(vals6)
 smoothed_vals7 = smooth_data(vals7)
 
-plt.plot(step_nums1, smoothed_vals1)
-plt.plot(step_nums2, smoothed_vals2)
-plt.plot(step_nums3, smoothed_vals3)
-plt.plot(step_nums4, smoothed_vals4)
-plt.plot(step_nums5, smoothed_vals5)
-plt.plot(step_nums6, smoothed_vals6)
-plt.plot(step_nums7, smoothed_vals7)
+# 每50步进行一次标记
+marker_interval = 50
+
+plt.plot(step_nums1[::marker_interval], smoothed_vals1[::marker_interval], linestyle='-', marker='o')
+plt.plot(step_nums2[::marker_interval], smoothed_vals2[::marker_interval], linestyle='--', marker='x')
+plt.plot(step_nums3[::marker_interval], smoothed_vals3[::marker_interval], linestyle='-.', marker='s')
+plt.plot(step_nums4[::marker_interval], smoothed_vals4[::marker_interval], linestyle=':', marker='d')
+plt.plot(step_nums5[::marker_interval], smoothed_vals5[::marker_interval], linestyle='-', marker='+')
+plt.plot(step_nums6[::marker_interval], smoothed_vals6[::marker_interval], linestyle='--', marker='*')
+plt.plot(step_nums7[::marker_interval], smoothed_vals7[::marker_interval], linestyle='-.', marker='^')
 
 plt.xlabel('Step Number')
 plt.ylabel('Reward')
 plt.ylim(1.5, 3.8)
-# plt.legend(['1', '2', '4', '6', '8', '10', '12'])
 plt.legend(['20', '25', '30','35', '40', '45', '50'])
-
 
 # 显示曲线
 plt.show()

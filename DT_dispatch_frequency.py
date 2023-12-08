@@ -68,13 +68,24 @@ smoothed_vals5 = smooth_data(go_num40_x_total)
 smoothed_vals6 = smooth_data(go_num45_x_total)
 smoothed_vals7 = smooth_data(go_num50_x_total)
 
-# plt.plot(bins[:-1], smoothed_vals1)
-plt.plot(bins[:-1], smoothed_vals2)
-plt.plot(bins[:-1], smoothed_vals3)
-# plt.plot(bins[:-1], smoothed_vals4)
-plt.plot(bins[:-1], smoothed_vals5)
-plt.plot(bins[:-1], smoothed_vals6)
-plt.plot(bins[:-1], smoothed_vals7)
+# # plt.plot(bins[:-1], smoothed_vals1)
+# plt.plot(bins[:-1], smoothed_vals2)
+# plt.plot(bins[:-1], smoothed_vals3)
+# # plt.plot(bins[:-1], smoothed_vals4)
+# plt.plot(bins[:-1], smoothed_vals5)
+# plt.plot(bins[:-1], smoothed_vals6)
+# plt.plot(bins[:-1], smoothed_vals7)
+
+# 每50步进行一次标记
+# marker_interval = 50
+
+# plt.plot(bins[:-1][::marker_interval], smoothed_vals1[::marker_interval], linestyle='-', marker='o')
+plt.plot(bins[:-1], smoothed_vals2, linestyle='--', marker='x')
+plt.plot(bins[:-1], smoothed_vals3, linestyle='-.', marker='s')
+# plt.plot(bins[:-1][::marker_interval], smoothed_vals4[::marker_interval], linestyle=':', marker='d')
+plt.plot(bins[:-1], smoothed_vals5, linestyle='-', marker='+')
+plt.plot(bins[:-1], smoothed_vals6, linestyle='--', marker='*')
+plt.plot(bins[:-1], smoothed_vals7, linestyle='-.', marker='^')
 
 plt.legend(['25', '30', '40', '45', '50'])
 
