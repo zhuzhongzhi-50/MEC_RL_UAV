@@ -119,7 +119,8 @@ def traffic_move(sensor, move, i):
     
     # 中心区域处理
     # 左下
-    if sensor.position[0] >= 95 and sensor.position[0] <= 100 and sensor.position[1] >= 75 and sensor.position[1] <= 100:
+    # if sensor.position[0] >= 95 and sensor.position[0] <= 100 and sensor.position[1] >= 75 and sensor.position[1] <= 100:
+    if sensor.position[0] >= 95 and sensor.position[0] <= 100 and sensor.position[1] >= 75 and sensor.position[1] <= 125:
         a = np.random.randint(1,5)
         if a == 1:
             sensor.position[1] += 25
@@ -151,7 +152,8 @@ def traffic_move(sensor, move, i):
         return True
 
     # 右上
-    if sensor.position[0] >= 100 and sensor.position[0] <= 105 and sensor.position[1] >= 100 and sensor.position[1] <= 125:
+    # if sensor.position[0] >= 100 and sensor.position[0] <= 105 and sensor.position[1] >= 100 and sensor.position[1] <= 125:
+    if sensor.position[0] >= 100 and sensor.position[0] <= 105 and sensor.position[1] >= 75 and sensor.position[1] <= 125:
         a = np.random.randint(1,5)
         if a == 1:
             sensor.position[1] -= 25

@@ -32,7 +32,7 @@ sensor_move_r = 3
 
 # 训练参数：最大训练轮数、最大的探索步数、学习率、奖励折扣、目标网络的软更新、批次、探索因子
 # alpha、beta 目前还没有用到，以后有用可以使用
-MAX_EPOCH = 10000
+MAX_EPOCH = 15000
 MAX_EP_STEPS = 200
 LR_A = 0.001
 LR_C = 0.002

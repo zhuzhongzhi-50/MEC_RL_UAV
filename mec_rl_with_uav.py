@@ -376,15 +376,15 @@ class MEC_RL_With_Uav(object):
                     
                     self.center_memory.append([sensor_cur_state_list[count_device_distance], sensor_softmax_list[count_device_distance], sensor_rewards[count_device_distance], new_sensor_cur_state_list[count_device_distance]])
                     count_device_distance += 1
-            if(self.if_dispatch):
-                for sensor in self.sensors:
-                    if(sensor.dispatch_count > 10):
-                        self.creat_UAV(sensor)
-                        # 手动增加无人机后，直接清零
-                        for sensor in self.sensors:
-                            sensor.dispatch_count = 0
-                        self.record_epoch.append([epoch, sensor.no])      
-                        self.if_dispatch = False
+            # if(self.if_dispatch):
+            #     for sensor in self.sensors:
+            #         if(sensor.dispatch_count > 10):
+            #             self.creat_UAV(sensor)
+            #             # 手动增加无人机后，直接清零
+            #             for sensor in self.sensors:
+            #                 sensor.dispatch_count = 0
+            #             self.record_epoch.append([epoch, sensor.no])      
+            #             self.if_dispatch = False
         else:
             # 随机移动决策，没有保存数据到经验池中
             uav_act_list = []
@@ -575,16 +575,16 @@ class MEC_RL_With_Uav(object):
                 #     np.save(file_path2, uav.position_y)
                 if(epoch == 9999):
                     file_path3 = 'logs/array_x_last.npy' + str(i)
-                    np.save(file_path3, uav.position_x_last)
+                    np.save(file_path3, uav.position_x)
                     file_path4 = 'logs/array_y_last.npy' + str(i)
-                    np.save(file_path4, uav.position_y_last)
+                    np.save(file_path4, uav.position_y)
         
             if(epoch == 9999):
                 file_path5 = 'logs/go_num25.npy'
                 np.save(file_path5, self.env.world.go_num)
                 # 记录出发派遣的epoch
-                file_path10 = 'logs/dispatch_epoch.npy'
-                np.save(file_path10, self.record_epoch)
+                # file_path10 = 'logs/dispatch_epoch.npy'
+                # np.save(file_path10, self.record_epoch)
             
             if epoch % up_freq == 1:
                 if FL:
