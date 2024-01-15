@@ -376,15 +376,16 @@ class MEC_RL_With_Uav(object):
                     
                     self.center_memory.append([sensor_cur_state_list[count_device_distance], sensor_softmax_list[count_device_distance], sensor_rewards[count_device_distance], new_sensor_cur_state_list[count_device_distance]])
                     count_device_distance += 1
-            # if(self.if_dispatch):
-            #     for sensor in self.sensors:
-            #         if(sensor.dispatch_count > 10):
-            #             self.creat_UAV(sensor)
-            #             # 手动增加无人机后，直接清零
-            #             for sensor in self.sensors:
-            #                 sensor.dispatch_count = 0
-            #             self.record_epoch.append([epoch, sensor.no])      
-            #             self.if_dispatch = False
+            # 将常驻派遣阈值设置在 0 5 10 15 20 
+            if(self.if_dispatch):
+                for sensor in self.sensors:
+                    if(sensor.dispatch_count > 10):
+                        self.creat_UAV(sensor)
+                        # 手动增加无人机后，直接清零
+                        for sensor in self.sensors:
+                            sensor.dispatch_count = 0
+                        self.record_epoch.append([epoch, sensor.no])      
+                        self.if_dispatch = False
         else:
             # 随机移动决策，没有保存数据到经验池中
             uav_act_list = []

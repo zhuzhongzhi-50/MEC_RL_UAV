@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
-def smooth_data(data, weight=0.99):
+def smooth_data(data, weight=0.95):
     smoothed_data = []
     last = data[0]
     for point in data:
@@ -12,16 +12,12 @@ def smooth_data(data, weight=0.99):
         last = smoothed_point
     return smoothed_data
 
-# file_path1 = 'logs/go_num_plus/reward_60_no.json'
-# file_path2 = 'logs/go_num_plus/reward_60_uav1.json'
-
 file_path1 = 'logs/go_num_plus/reward_60_no_15000.json'
-file_path2 = 'logs/go_num_plus/reward_60_uav1_15000.json'
-file_path3 = 'logs/go_num_plus/logs_fit_20240109-160306_5.json'
-file_path4 = 'logs/go_num_plus/logs_fit_20240107-080237_15.json'
-file_path5 = 'logs/go_num_plus/logs_fit_20240108-120619_20.json'
-file_path6 = 'logs/go_num_plus/logs_fit_20240111-171902_7.json'
-file_path7 = 'logs/go_num_plus/logs_fit_20240113-085213_9.json'
+file_path2 = 'logs/go_num_plus/logs_fit_20240109-160306_5.json'
+file_path3 = 'logs/go_num_plus/logs_fit_20240111-171902_7.json'
+file_path4 = 'logs/go_num_plus/logs_fit_20240113-085213_9.json'
+file_path5 = 'logs/go_num_plus/logs_fit_20240107-080237_15.json'
+
 
 # 加载 JSON 数据
 with open(file_path1, 'r') as file:
@@ -59,59 +55,59 @@ step_nums1 = []
 for i, entry in enumerate(data1):
     step_nums1.append(entry[1])
     vals1.append(entry[2] * 1/4)
-    if entry[1] == 13999:
+    if entry[1] == 10975:
         break
 
 step_nums2 = []
 vals2_modified = []
 for i, entry in enumerate(data2):
-    # if(entry[1] == 4183):
+    # if(entry[1] == 2533):
     #     print(i)
     step_nums2.append(entry[1])
-    if i >= 266:
+    if i >= 177:
         vals2_modified.append(entry[2] * 4/5 * 1/4)
     else:
         vals2_modified.append(entry[2] * 1/4)
-    if entry[1] == 13971:
+    if entry[1] == 10975:
         break
 
 step_nums3 = []
 vals3_modified = []
 for i, entry in enumerate(data3):
-    # if(entry[1] == 2533):
+    # if(entry[1] == 3727):
     #     print(i)
     step_nums3.append(entry[1])
-    if i >= 177:
+    if i >= 240:
         vals3_modified.append(entry[2] * 4/5 * 1/4)
     else:
         vals3_modified.append(entry[2] * 1/4)
-    if entry[1] == 13971:
+    if entry[1] == 10975:
         break
 
 step_nums4 = []
 vals4_modified = []
 for i, entry in enumerate(data4):
-    # if(entry[1] == 5964):
+    # if(entry[1] == 4110):
     #     print(i)
     step_nums4.append(entry[1])
-    if i >= 324:
+    if i >= 265:
         vals4_modified.append(entry[2] * 4/5 * 1/4)
     else:
         vals4_modified.append(entry[2] * 1/4)
-    if entry[1] == 13971:
+    if entry[1] == 10975:
         break
 
 step_nums5 = []
 vals5_modified = []
 for i, entry in enumerate(data5):
-    # if(entry[1] == 5964):
+    # if(entry[1] == 4977):
     #     print(i)
     step_nums5.append(entry[1])
-    if i >= 383:
+    if i >= 324:
         vals5_modified.append(entry[2] * 4/5 * 1/4)
     else:
         vals5_modified.append(entry[2] * 1/4)
-    if entry[1] == 13971:
+    if entry[1] == 10975:
         break
 
 smoothed_vals1 = smooth_data(vals1)
@@ -132,7 +128,7 @@ plt.plot(step_nums5[::marker_interval], smoothed_vals5[::marker_interval], lines
 plt.xlabel('Step Number')
 plt.ylabel('Reward')
 # plt.ylim(1.2, 3.8)
-plt.legend(['No-Permanent', 'Permanent-UAV-5', 'Permanent-UAV-10', 'Permanent-UAV-15', 'Permanent-UAV-20'])
+plt.legend(['No-Permanent', 'Permanent-UAV-5', 'Permanent-UAV-7', 'Permanent-UAV-9', 'Permanent-UAV-15'])
 
 # 显示曲线
 plt.show()
