@@ -1,6 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# from matplotlib import rcParams
+
+# config = {
+#     "font.family":'serif',
+#     # "font.size": 20,
+#     "mathtext.fontset":'stix',
+#     "font.serif": ['SimSun'],
+# }
+# rcParams.update(config)
+
 def smooth_data(data, weight=0.95):
     smoothed_data = []
     last = data[0]
@@ -96,7 +106,9 @@ plt.legend(['25', '30', '40', '45', '50'])
 
 # 绘制柱状图
 # plt.bar(all_count_x, all_count_y)
-plt.xlabel('Dispatch Threshold')
+plt.xlabel('Step Number')
 plt.ylabel('UAV Dispatch Frequency')
+# plt.xlabel('执行步数')
+# plt.ylabel('无人机的派遣频率')
 # plt.title('Comparison of y_count for Different Groups')
 plt.show()

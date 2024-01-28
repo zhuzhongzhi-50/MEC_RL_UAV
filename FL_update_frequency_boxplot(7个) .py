@@ -2,6 +2,15 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from matplotlib import rcParams
+
+config = {
+    "font.family":'serif',
+    # "font.size": 20,
+    "mathtext.fontset":'stix',
+    "font.serif": ['SimSun'],
+}
+rcParams.update(config)
 
 def smooth_data(data, weight=0.95):
     smoothed_data = []
@@ -106,8 +115,10 @@ for pos, data, color, facecolor in zip(positions, all_data, colors, facecolors):
 plt.xticks(positions, ['0', '2', '4', '6', '8', '10', '12'])
 # 添加标题和标签
 # plt.title('Multiple Boxplots')
-plt.xlabel('Update Frequency')
-plt.ylabel('Reward Statistic')
+# plt.xlabel('Update Frequency')
+# plt.ylabel('Reward Statistic')
+plt.xlabel('更新频率')
+plt.ylabel('奖励统计')
 
 # 显示图形
 plt.show()

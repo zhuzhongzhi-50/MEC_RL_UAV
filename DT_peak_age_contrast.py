@@ -3,6 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+from matplotlib import rcParams
+
+config = {
+    "font.family":'serif',
+    # "font.size": 20,
+    "mathtext.fontset":'stix',
+    "font.serif": ['SimSun'],
+}
+rcParams.update(config)
+
 # 设置使用LaTeX渲染文本
 # plt.rc('text', usetex=True)
 
@@ -62,8 +72,10 @@ plt.plot(step_nums1[::marker_interval], smoothed_vals1[::marker_interval], lines
 plt.plot(step_nums2[::marker_interval], smoothed_vals2[::marker_interval], linestyle='--', marker='x')
 plt.plot(step_nums3[::marker_interval], smoothed_vals3[::marker_interval], linestyle='-.', marker='s')
 
-plt.xlabel('Step Number')
-plt.ylabel('Peak Age')
+# plt.xlabel('Step Number')
+# plt.ylabel('Peak Age')
+plt.xlabel('执行步数')
+plt.ylabel('峰值年龄')
 # plt.ylim(1.2, 3.8)
 # plt.legend(['\u03BC = 0', '\u03BC = 1', '\u03BC = 0.5 \u03C8 = 30', '\u03BC = 0.5 \u03C8 = 25'])
 plt.legend(['\u03BC = 0.5', '\u03BC = 0.5 \u03C8 = 30', '\u03BC = 0.5 \u03C8 = 25'])

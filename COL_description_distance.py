@@ -137,7 +137,7 @@ ax.plot(range(1, len(smoothed_vals2)+1), smoothed_vals2, label='Last 1000 Step',
 
 ax.axhline(mean_dist_sums_last, color='r', linestyle='--', alpha=0.3)
 
-plt.xlabel('Step')
+plt.xlabel('Step Number')
 plt.ylabel('Uavs Distance')
 plt.ylim(60, 140)
 plt.legend()

@@ -3,6 +3,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FuncFormatter
 
+from matplotlib import rcParams
+
+config = {
+    "font.family":'serif',
+    # "font.size": 20,
+    "mathtext.fontset":'stix',
+    "font.serif": ['SimSun'],
+}
+rcParams.update(config)
+
 go_num20 = 'logs/go_num/go_num20.npy'
 go_num25 = 'logs/go_num/go_num25.npy'
 go_num30 = 'logs/go_num/go_num30.npy'
@@ -113,8 +123,10 @@ for bar in bars1:
 
 ax.set_xticks(x)
 ax.set_xticklabels(all_count_x)
-ax.set_xlabel('Dispatch Threshold')
-ax.set_ylabel('The number of UAV dispatch times')
+# ax.set_xlabel('Dispatch Threshold')
+# ax.set_ylabel('The number of UAV dispatch times')
+ax.set_xlabel('派遣阈值')
+ax.set_ylabel('无人机的调度次数')
 # ax.legend(['All Count', 'Max Three Count'])
 plt.show()
 
