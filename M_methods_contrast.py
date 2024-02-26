@@ -74,7 +74,7 @@ plt.plot(step_nums4[::marker_interval], smoothed_vals4[::marker_interval], lines
 plt.xlabel('Step Number')
 plt.ylabel('Reward')
 # plt.ylim(1.2, 3.8)
-plt.legend(['Fixed-ISODATA', 'AC', 'PC_AC', 'PC_RD_AC'])
+plt.legend(['Fixed ISODATA', 'AC', 'PCAC', 'PCRDAC'])
 
 # 显示曲线
 plt.show()
