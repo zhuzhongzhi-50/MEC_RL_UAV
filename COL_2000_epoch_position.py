@@ -2,6 +2,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FuncFormatter
+
+from matplotlib import rcParams
+
+config = {
+    "font.family":'serif',
+    # "font.size": 20,
+    "mathtext.fontset":'stix',
+    "font.serif": ['SimSun'],
+}
+rcParams.update(config)
+
 def format_num(x, pos):
     return int(x * 2000)
 
@@ -56,17 +67,25 @@ ax.set_ylabel('y')
 cbar = plt.colorbar(sc, shrink=0.8)
 formatter = FuncFormatter(format_num)
 cbar.ax.yaxis.set_major_formatter(formatter)
-cbar.set_label('epoch')
+cbar.set_label('步数')
 
 # 添加文本标签
 bbox_props = dict(boxstyle='round,pad=0.25', fc='white', ec='blue', lw=1, alpha=0.5)
-ax.text(0.22, 0.97, 'uav-2', transform=ax.transAxes, fontsize=12,
+# ax.text(0.22, 0.97, 'uav-2', transform=ax.transAxes, fontsize=12,
+#         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
+# ax.text(0.27, 0.15, 'uav-4', transform=ax.transAxes, fontsize=12,
+#         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
+# ax.text(0.02, 0.45, 'uav-1', transform=ax.transAxes, fontsize=12,
+#         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
+# ax.text(0.8, 0.35, 'uav-3', transform=ax.transAxes, fontsize=12,
+#         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
+ax.text(0.22, 0.97, '无人机-2', transform=ax.transAxes, fontsize=12,
         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
-ax.text(0.27, 0.15, 'uav-4', transform=ax.transAxes, fontsize=12,
+ax.text(0.27, 0.15, '无人机-4', transform=ax.transAxes, fontsize=12,
         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
-ax.text(0.02, 0.45, 'uav-1', transform=ax.transAxes, fontsize=12,
+ax.text(0.02, 0.45, '无人机-1', transform=ax.transAxes, fontsize=12,
         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
-ax.text(0.8, 0.35, 'uav-3', transform=ax.transAxes, fontsize=12,
+ax.text(0.8, 0.35, '无人机-3', transform=ax.transAxes, fontsize=12,
         verticalalignment='top', bbox=bbox_props, color='blue', alpha=0.5)
 
 # 在子图中绘制设备位置和场景车道
@@ -94,11 +113,13 @@ ax.fill_between([0,200], 75, 125, color='navy', alpha=0.1)
 ax.fill_between([75,125], 0, 200, color='navy', alpha=0.1)
 
 ax.grid()
-ax.legend(handles=[servers], labels=['Servers'], loc='upper right')
+# ax.legend(handles=[servers], labels=['Servers'], loc='upper right')
+ax.legend(handles=[servers], labels=['服务器'], loc='upper right')
 ax.axis('square')
 ax.set_xlim([0, 200])
 ax.set_ylim([0, 200])
 
-plt.title('all uavs position epoch(0--2000)')
+# plt.title('all uavs position epoch(0--2000)')
+plt.title('所有无人机位置(0--2000)')
 
 plt.show()

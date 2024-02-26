@@ -3,6 +3,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+from matplotlib import rcParams
+
+config = {
+    "font.family":'serif',
+    # "font.size": 20,
+    "mathtext.fontset":'stix',
+    "font.serif": ['SimSun'],
+}
+rcParams.update(config)
+
 def smooth_data(data, weight=0.99):
     smoothed_data = []
     last = data[0]
@@ -85,8 +95,10 @@ plt.plot(step_nums5[::marker_interval], smoothed_vals5[::marker_interval], lines
 plt.plot(step_nums6[::marker_interval], smoothed_vals6[::marker_interval], linestyle='--', marker='*')
 plt.plot(step_nums7[::marker_interval], smoothed_vals7[::marker_interval], linestyle='-.', marker='^')
 
-plt.xlabel('Step Number')
-plt.ylabel('Reward')
+# plt.xlabel('Step Number')
+# plt.ylabel('Reward')
+plt.xlabel('执行步数')
+plt.ylabel('奖励')
 plt.ylim(1.5, 3.8)
 plt.legend(['20', '25', '30','35', '40', '45', '50'])
 
