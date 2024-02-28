@@ -86,7 +86,7 @@ plt.plot(step_nums4[::marker_interval], smoothed_vals4[::marker_interval], lines
 plt.xlabel('执行步数')
 plt.ylabel('奖励')
 # plt.ylim(1.2, 3.8)
-plt.legend(['Fixed ISODATA', 'AC', 'PCAC', 'PCRDAC'])
+plt.legend(['改进的 ISODATA', 'AC', 'PCAC', 'PCRDAC'])
 
 # 显示曲线
 plt.show()
