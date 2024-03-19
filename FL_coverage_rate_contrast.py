@@ -77,12 +77,12 @@ plt.plot(step_nums3[::marker_interval], smoothed_vals3[::marker_interval], lines
 plt.plot(step_nums4[::marker_interval], smoothed_vals4[::marker_interval], linestyle=':', marker='d')
 plt.plot(step_nums5[::marker_interval], smoothed_vals5[::marker_interval], linestyle='-', marker='+')
 
-# plt.xlabel('Step Number')
-# plt.ylabel('Reward')
-plt.xlabel('执行步数')
-plt.ylabel('奖励')
+plt.xlabel('Step Number')
+plt.ylabel('Reward')
+# plt.xlabel('执行步数')
+# plt.ylabel('奖励')
 plt.ylim(1.2, 3.8)
-plt.legend(['0', '0.25', '0.5', '0.75', '1'])
+plt.legend(['1', '0.75', '0.5', '0.25', '0'])
 
 # 显示曲线
 plt.show()
